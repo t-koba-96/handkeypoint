@@ -97,7 +97,9 @@ def draw_handpose(canvas, all_hand_peaks, show_number=False):
 
         for i, keyponit in enumerate(peaks):
             x, y = keyponit
-            ax.plot(x, y, 'r.')
+            cv2.circle(canvas, (x, y), 4, (0, 0, 255), thickness=-1)
+            if x != 0 or y != 0:  
+                ax.plot(x, y, 'r.')
             if show_number:
                 ax.text(x, y, str(i))
     bg.draw()
@@ -118,7 +120,9 @@ def draw_handpose_by_opencv(canvas, peaks, show_number=False):
 
     for i, keyponit in enumerate(peaks):
         x, y = keyponit
-        cv2.circle(canvas, (x, y), 4, (0, 0, 255), thickness=-1)
+        if x != 0 or y != 0:
+            cv2.circle(canvas, (x, y), 4, (0, 0, 255), thickness=-1)
+
         if show_number:
             cv2.putText(canvas, str(i), (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.3, (0, 0, 0), lineType=cv2.LINE_AA)
     return canvas
